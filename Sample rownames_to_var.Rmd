@@ -1,0 +1,60 @@
+---
+title: "Sample rownames_to_var"
+author: "Daniel"
+date: "2023-10-26"
+output: html_document
+---
+
+
+```{r setup, include=FALSE} 
+# this chunk contains code that sets global options for the entire .Rmd. 
+# we use include=FALSE to suppress it from the top of the document, but it will still appear in the appendix. 
+
+knitr::opts_chunk$set(echo = FALSE) # actually set the global chunk options. 
+# we set echo=FALSE to suppress code such that it by default does not appear throughout the document. 
+# note: this is different from .Rmd default
+```
+
+Below is the function "rownames_to_var". It takes a data frame and converts the data's rownames into a variable. 
+```{r echo_example, echo=TRUE}
+rownames_to_var <- function(data, remove.rownames = TRUE){
+  
+  names <- rownames(data) #creating vector for all rownames
+  
+  data_final <- data.frame(names, data) #reposition to ensure names variable is the first column
+  
+  #if argument remove.rownames is TRUE, rownames will be changed to NULL
+  if(remove.rownames == TRUE){
+    rownames(data_final) <- NULL
+  } else{NULL}
+  
+  
+  return(data_final)
+}
+```
+
+I have added an argument "remove.rownames" and have set the default as TRUE. If remove.rownames is set to TRUE, then rownames of the original dataset would be removed. If remove.rownames is set to FALSE, then the rownames of the original dataset would be retained. An example below with the mtcars dataset. 
+
+```{r}
+data("mtcars")
+
+test_true <- rownames_to_var(mtcars)
+
+head(test_true)
+
+test_false <- rownames_to_var(mtcars, remove.rownames = FALSE)
+
+head(test_false)
+```
+As you can see, both datasets returned with the rownames as a variable named "names", but the difference is with the one where remove.rownames = TRUE, the original rownames were removed and set to numbers as default. 
+
+
+
+
+
+## Appendix: All code in this assignment
+
+```{r ref.label=knitr::all_labels(), echo=TRUE, eval=FALSE} 
+# this chunk generates the complete code appendix. 
+# eval=FALSE tells R not to run (``evaluate'') the code here (it was already run before).
+```
