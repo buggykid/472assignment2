@@ -1,6 +1,6 @@
 ---
-title: "Sample rownames_to_var"
-author: "Daniel"
+title: "Demo rownames_to_var"
+author: "TheKid"
 date: "2023-10-26"
 output: html_document
 ---
@@ -15,7 +15,8 @@ knitr::opts_chunk$set(echo = FALSE) # actually set the global chunk options.
 # note: this is different from .Rmd default
 ```
 
-Below is the function "rownames_to_var". It takes a data frame and converts the data's rownames into a variable. 
+# Introduction  
+Below is the function "rownames_to_var". It takes a data frame and converts the data's rownames into a variable.
 ```{r echo_example, echo=TRUE}
 rownames_to_var <- function(data, remove.rownames = TRUE){
   
@@ -32,24 +33,35 @@ rownames_to_var <- function(data, remove.rownames = TRUE){
   return(data_final)
 }
 ```
+This function takes in two arguments, data and remove.rownames.   
+data: A data frame  
+remove.rownames: A logical evaluating to TRUE or FALSE indicating whether rownames in the original data frame should be removed or not. 
 
-I have added an argument "remove.rownames" and have set the default as TRUE. If remove.rownames is set to TRUE, then rownames of the original dataset would be removed. If remove.rownames is set to FALSE, then the rownames of the original dataset would be retained. An example below with the mtcars dataset. 
 
+# Demonstration
+To demonstrate the use of the function I will be using "mtcars": 
 ```{r}
 data("mtcars")
 
-test_true <- rownames_to_var(mtcars)
+head(mtcars)
+```
+      
+     
+The default for the argument remove.rownames has been set to TRUE which tells the function to remove the original rownames in the data frame.
+```{r, echo=TRUE}
+test_true <- rownames_to_var(mtcars, remove.rownames = TRUE)
 
 head(test_true)
+```
+Note that a new variable "names" has been added to the data with the original rownames removed and by default R replaces it with a list of integers that corresponds to the row's position.  
 
+On the other hand, if we set remove.rownames to False: 
+```{r, echo=TRUE}
 test_false <- rownames_to_var(mtcars, remove.rownames = FALSE)
 
 head(test_false)
 ```
-As you can see, both datasets returned with the rownames as a variable named "names", but the difference is with the one where remove.rownames = TRUE, the original rownames were removed and set to numbers as default. 
-
-
-
+The new variable will still be created with the exception that the original rownames are retained. 
 
 
 ## Appendix: All code in this assignment
